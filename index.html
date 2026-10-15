@@ -1,52 +1,85 @@
-<!-- Inquiry & Order Form Section -->
-<section style="margin-top: 40px; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-    <h2>Request Custom Furniture / Inquiry</h2>
-    <form id="inquiry-form">
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Your Name:</label>
-            <input type="text" id="customer_name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email Address:</label>
-            <input type="email" id="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Order Notes / Custom Requirements:</label>
-            <textarea id="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
-        </div>
-        <button type="submit" style="background: #2c221e; color: #fff; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em;">Submit Inquiry</button>
-    </form>
-    <p id="form-status" style="margin-top: 15px; font-weight: bold;"></p>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohona Craft Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<script type="module">
-    import { supabase } from './supabase-config.js';
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="logo">Mohona Craft Studio</div>
+        <nav class="nav">
+            <a href="#about">About</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-    const form = document.getElementById('inquiry-form');
-    const statusP = document.getElementById('form-status');
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Handcrafted Custom Furniture</h1>
+        <p>Bringing elegance and timeless craft into your living spaces.</p>
+    </section>
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    <!-- Main Content Container -->
+    <main class="container">
         
-        const customer_name = document.getElementById('customer_name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
+        <!-- About Section -->
+        <section id="about" class="card">
+            <h2>About Us</h2>
+            <p>At Mohona Craft Studio, we design and build high-quality, custom wooden furniture tailored to your modern living needs.</p>
+        </section>
 
-        statusP.style.color = '#333';
-        statusP.innerText = 'Sending your inquiry...';
+        <!-- Product Gallery Section -->
+        <section id="products" class="card">
+            <h2>Featured Collections</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop" alt="Custom Sofa">
+                    <h3>Living Room Solutions</h3>
+                    <p>Comfortable, custom-upholstered modern sofas and wooden lounge chairs.</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?w=500&auto=format&fit=crop" alt="Dining Table">
+                    <h3>Handcrafted Dining Sets</h3>
+                    <p>Solid wood dining tables built to bring your family together.</p>
+                </div>
+            </div>
+        </section>
 
-        // Insert form values into the Supabase 'inquiries' table
-        const { error } = await supabase
-            .from('inquiries')
-            .insert([{ customer_name, email, message }]);
+        <!-- Inquiry Form Section -->
+        <section id="contact" class="card">
+            <h2>Request Custom Furniture / Inquiry</h2>
+            <form id="inquiry-form">
+                <div class="form-group">
+                    <label for="customer_name">Your Name:</label>
+                    <input type="text" id="customer_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Order Notes / Custom Requirements:</label>
+                    <textarea id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn">Submit Inquiry</button>
+            </form>
+            <p id="form-status" class="status-msg"></p>
+        </section>
 
-        if (error) {
-            statusP.style.color = '#ff6b6b';
-            statusP.innerText = 'Error submitting form: ' + error.message;
-        } else {
-            statusP.style.color = '#51cf66';
-            statusP.innerText = 'Thank you! Your inquiry has been sent successfully.';
-            form.reset();
-        }
-    });
-</script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Mohona Craft Studio. All rights reserved.</p>
+    </footer>
+
+    <!-- App Script -->
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>

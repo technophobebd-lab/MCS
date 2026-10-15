@@ -1,11 +1,9 @@
 import { supabase } from './supabase-config.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('inquiry-form');
-    const statusP = document.getElementById('form-status');
+const form = document.getElementById('inquiry-form');
+const statusP = document.getElementById('form-status');
 
-    if (!form) return;
-
+if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -16,17 +14,18 @@ document.addEventListener('DOMContentLoaded', () => {
         statusP.style.color = '#333';
         statusP.innerText = 'Sending your inquiry...';
 
+        // Insert into Supabase table 'creatClient'
         const { error } = await supabase
-            .from('inquiries')
+            .from('creatClient')
             .insert([{ customer_name, email, message }]);
 
         if (error) {
-            statusP.style.color = '#ff6b6b';
+            statusP.style.color = '#e03131';
             statusP.innerText = 'Error submitting form: ' + error.message;
         } else {
-            statusP.style.color = '#51cf66';
-            statusP.innerText = 'Thank you! Inquiry submitted successfully.';
+            statusP.style.color = '#2b8a3e';
+            statusP.innerText = 'Thank you! Your inquiry has been sent successfully.';
             form.reset();
         }
     });
-});
+}
